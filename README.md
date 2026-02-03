@@ -2,7 +2,7 @@
 
 <h1>🌙 Hey… It’s You 🌙</h1>
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Courier&size=24&duration=3000&pause=1000&color=F78DA7&center=true&vCenter=true&width=435&lines=Someone+is+thinking+about+you...;Yes.+That’s+me.">
+<img src="https://readme-typing-svg.herokuapp.com?font=Courier&size=24&duration=3000&pause=1000&color=F78DA7&center=true&vCenter=true&width=435&lines= Someone+is+thinking+about+you...;Yes.+That’s+me.">
 
 <br><br>
 

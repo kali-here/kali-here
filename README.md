@@ -4,9 +4,9 @@
 
 <br>
 
-   (\_/)
-  ( •.• )  
-  / >💗< \
+<img width="352" height="266" alt="image" src="https://github.com/user-attachments/assets/d736a47b-24a7-4d24-b20e-4cd277d88f22" />
+
+
 
 <br>
 

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Starry Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(to bottom, #020111 10%, #191b3e 90%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+            transition: background 3s ease;
+        }
+
+        /* Container for the scene */
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* The Moon */
+        .moon-container {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .moon {
+            width: 120px;
+            height: 120px;
+            background: #fdf6e3;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 20px #fdf6e3,
+                0 0 60px #eec974,
+                0 0 100px rgba(238, 201, 116, 0.4);
+            transition: all 0.8s ease;
+            position: relative;
+        }
+
+        /* Craters for detail */
+        .crater {
+            position: absolute;
+            background: rgba(200, 200, 200, 0.3);
+            border-radius: 50%;
+        }
+
+        /* Moon Hover State */
+        .moon-container:hover .moon {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 30px #fdf6e3,
+                0 0 80px #eec974,
+                0 0 120px rgba(238, 201, 116, 0.6);
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 1;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        /* The Hidden Message */
+        .message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 20;
+            transition: all 2s ease;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .message-text {
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .sub-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        /* Active State Classes */
+        body.active .moon-container {
+            transform: translateY(-150px) scale(0.6);
+        }
+
+        body.active .click-hint {
+            opacity: 0;
+        }
+
+        body.active .message-container {
+            opacity: 1;
+            transform: translate(-50%, -40%) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Shooting Star Animation */
+        .shooting-star {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            transform: rotate(-45deg) translateX(-100px);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        @keyframes shoot {
+            0% { transform: rotate(-45deg) translateX(0); opacity: 1; }
+            100% { transform: rotate(-45deg) translateX(-800px); opacity: 0; }
+        }
+
+        /* Music Controls (Optional hidden or visible) */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            opacity: 0;
+            transition: opacity 1s;
+            cursor: pointer;
+            z-index: 100;
+        }
+        body.active #music-control {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scene" id="scene">
+        <!-- Stars will be generated here by JS -->
+        
+        <div class="moon-container" id="moon-trigger">
+            <div class="moon">
+                <div class="crater" style="width: 20px; height: 20px; top: 20px; left: 30px;"></div>
+                <div class="crater" style="width: 10px; height: 10px; top: 60px; left: 70px;"></div>
+                <div class="crater" style="width: 15px; height: 15px; top: 80px; left: 25px;"></div>
+            </div>
+            <div class="click-hint">tap the moon</div>
+        </div>
+
+        <div class="message-container">
+            <h1 class="message-text">Even in the darkest nights,<br>you shine the brightest.</h1>
+            <p class="sub-text">You are my universe. ✨<br><br>I Love You! ❤️</p>
+        </div>
+    </div>
+
+    <!-- Music Control Icon -->
+    <div id="music-control" onclick="toggleMusic()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+    </div>
+
+    <!-- Audio Element -->
+    <!-- Replaced with local file: song.mp3 -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const body = document.body;
+        const scene = document.getElementById('scene');
+        const moonTrigger = document.getElementById('moon-trigger');
+        const audio = document.getElementById('bg-music');
+        let isActivated = false;
+
+        // 1. Generate Stars
+        function createStars() {
+            const starCount = 150;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                
+                // Random twinkle duration
+                const duration = Math.random() * 3 + 2;
+
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--duration', `${duration}s`);
+
+                scene.appendChild(star);
+            }
+        }
+
+        // 2. Shooting Star Effect
+        function createShootingStar() {
+            if (!isActivated) return; // Only shoot stars after activation? Or randomly always.
+            
+            const star = document.createElement('div');
+            star.classList.add('shooting-star');
+            
+            // Random start position
+            star.style.top = `${Math.random() * 50}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            
+            scene.appendChild(star);
+            
+            // Animate manually if CSS animation triggers aren't enough, 
+            // but here we just append the class which has animation.
+            star.style.animation = 'shoot 2s linear forwards';
+
+            // Clean up
+            setTimeout(() => {
+                star.remove();
+            }, 2000);
+        }
+
+        // 3. Interaction Handler
+        moonTrigger.addEventListener('click', () => {
+            if (!isActivated) {
+                isActivated = true;
+                body.classList.add('active');
+                
+                // Play Music (requires user interaction, which this click provides)
+                audio.volume = 0.5;
+                audio.play().catch(e => console.log("Audio play failed:", e));
+
+                // Start occasional shooting stars
+                setInterval(createShootingStar, 4000);
+            }
+        });
+
+        // Optional: Toggle music if clicked
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+        // Initialize
+        createStars();
+
+    </script>
+</body>
+</html>

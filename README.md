@@ -1,21 +1,12 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Courier&size=20&duration=2500&pause=800&color=F78DA7&center=true&vCenter=true&width=500&lines=Hey+you...;Yes.+You.;Someone+made+this+just+for+you.;Because+you+matter.">
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="160"/>
 
-<br>
+# Hey You 🌸
 
-    you     you     you
-      you         you
-        you     you
-           you
-          you you
-        you       you
-     you             you
-  you                   you
-        💗
+<img src="https://readme-typing-svg.herokuapp.com?font=Courier&size=20&duration=2500&pause=1000&color=F78DA7&center=true&vCenter=true&width=500&lines=Someone+made+this+just+for+you...;Because+you+matter.">
 
-
-<br>
+<br><br>
 
 I don’t know where this will go.  
 But I do know one thing —
